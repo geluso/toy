@@ -1,0 +1,14 @@
+_main
+    PUSH 64
+    CALL _countdownfrom
+    HALT
+    
+_countdownfrom
+  MOV Z C
+  SUB 2 C
+  MOV *C B
+  SUB 1 B
+  MOV B *C
+  OUT 1 B
+  JGT B 1 _countdownfrom
+  RET

@@ -9,44 +9,18 @@ export let _program = {}
 export let _error = ''
 export let _text = `
 _main
-    PUSH 1
-    PUSH 2
-    PUSH 3
-    PUSH 4
-    POP D
-    POP C
-    POP B
-    POP A
+    PUSH 10
+    CALL _countto
+    HALT
     
-    OUT 1 0
-    CALL _on
-    JMP _loop
-    
-_loop
-    JGT A 64 _flip
-    OUT x80 A
-    ADD 1 A
-    PUSH be
-    PUSH ef
-    JMP _loop
-    
-_flip
-    MOV 0 A
-    JGT x80 0 _calloff
-    CALL _on
-    JMP _loop
-    
-_calloff
-    CALL _off
-    JMP _loop
-    
-_on
-    MOV 1 x80
-    RET
-
-_off
-    MOV 0 x80
-    RET
+_countto
+  MOV *S B
+  SUB 1 B
+  POP C
+  PUSH B
+  OUT 1 B
+  JGT 0 B _countto
+  RET
 `.trim()
 
 class Bug extends Error {
